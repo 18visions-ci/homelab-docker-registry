@@ -1,0 +1,12 @@
+- name: Create config directory
+  file:
+    path: /etc/docker/registry
+    state: directory
+
+- name: Copy registry config
+  copy:
+    src: config.yaml
+    dest: /etc/docker/registry/config.yaml
+    owner: root
+    group: root
+    mode: '0644'

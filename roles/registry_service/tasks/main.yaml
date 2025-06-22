@@ -1,0 +1,14 @@
+- name: Copy systemd service file
+  copy:
+    src: docker-registry.service
+    dest: /etc/systemd/system/docker-registry.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload systemd and start registry
+  systemd:
+    name: docker-registry
+    enabled: yes
+    state: started
+    daemon_reload: yes

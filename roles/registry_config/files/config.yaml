@@ -1,0 +1,10 @@
+version: 0.1
+log:
+  level: info
+  fields:
+    service: registry
+storage:
+  filesystem:
+    rootdirectory: /mnt/registry-data
+http:
+  addr: :5000

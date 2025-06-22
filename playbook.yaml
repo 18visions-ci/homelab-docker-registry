@@ -1,0 +1,17 @@
+- name: Deploy native Docker Registry with NFS backend
+  hosts: registry-node
+  become: yes
+  become_method: sudo  # Explicitly set sudo
+  become_user: root  # Run as root
+  vars:
+    # Define NFS mount details for the Unraid NAS
+    nas_mount_point: "/mnt/registry-data"
+    nas_server: "{{ nas_ip }}"  # Replace with your NAS IP or hostname
+    nas_share: "/mnt/user/registry-data-{{ env | default('dev') }}"  # Replace with your updated NFS share path on Unraid
+    registry_version: "3.0.0"  # Specify the Docker Registry version
+
+  roles:
+    - nfs_mount
+    - registry_install
+    - registry_config
+    - registry_service

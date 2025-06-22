@@ -1,0 +1,23 @@
+- name: Create install directory
+  file:
+    path: /opt/registry
+    state: directory
+
+- name: Download Docker Distribution binary
+  get_url:
+    url: https://github.com/distribution/distribution/releases/download/v{{ registry_version }}/registry_{{ registry_version }}_linux_amd64.tar.gz
+    dest: /opt/registry/registry.tar.gz
+    mode: '0644'
+
+- name: Extract registry binary
+  unarchive:
+    src: /opt/registry/registry.tar.gz
+    dest: /opt/registry/
+    remote_src: yes
+
+- name: Move binary to /usr/local/bin
+  copy:
+    remote_src: yes
+    src: /opt/registry/registry
+    dest: /usr/local/bin/registry
+    mode: '0755'
