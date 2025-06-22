@@ -41,16 +41,16 @@ ansible-playbook -i inventory playbook.yaml -e "nas_ip=<NFS_SERVER_IP>"
 
 ## Playbook Structure
 
-playbook.yaml: Main playbook orchestrating the deployment.
-roles/
-nfs_mount: Installs NFS client, mounts the NFS share, and verifies the mount.
-registry_install: Downloads and installs the Docker Registry binary.
-registry_config: Installs the registry configuration file.
-registry_service: Installs and enables the systemd service for the registry.
+- playbook.yaml: Main playbook orchestrating the deployment.
+- roles/
+    - nfs_mount: Installs NFS client, mounts the NFS share, and verifies the mount.
+    - registry_install: Downloads and installs the Docker Registry binary.
+    - registry_config: Installs the registry configuration file.
+    - registry_service: Installs and enables the systemd service for the registry.
 
 ## Customization
-Registry Version: Set registry_version in playbook.yaml or override via -e.
-NFS Mount Point/Share: Adjust nas_mount_point and nas_share as needed.
+- Registry Version: Set registry_version in playbook.yaml or override via -e.
+- NFS Mount Point/Share: Adjust nas_mount_point and nas_share as needed.
 
 ## Example Configuration
 The default registry configuration (roles/registry_config/files/config.yaml) stores images at /mnt/registry-data and listens on port 5000.
