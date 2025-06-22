@@ -3,7 +3,7 @@ Description=Docker Registry
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/registry serve /etc/docker/registry/config.yml
+ExecStart=/usr/local/bin/registry serve /etc/docker/registry/config.yaml
 Restart=always
 User=root
 Group=root
