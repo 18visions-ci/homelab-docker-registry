@@ -1,0 +1,11 @@
+[Unit]
+Description=Docker Registry Garbage Collection
+After=docker-registry.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/systemctl stop docker-registry
+ExecStart=/usr/local/bin/registry garbage-collect /etc/docker/registry/config.yaml
+ExecStartPost=/usr/bin/systemctl start docker-registry
+User=root
+StandardOutput=journal

@@ -5,8 +5,12 @@
   become_user: root  # Run as root
   vars:
     registry_version: "3.0.0"  # Specify the Docker Registry version
+    registry_hostname: "docker.ivebeens.hot"  # Override in Semaphore
+    registry_username: "admin"  # Override in Semaphore
+    registry_password: "changeme"  # Override in Semaphore
 
   roles:
     - registry_install
     - registry_config
     - registry_service
+    - registry_maintenance

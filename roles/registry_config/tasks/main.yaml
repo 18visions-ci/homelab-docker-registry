@@ -3,8 +3,33 @@
     path: /etc/docker/registry
     state: directory
 
+- name: Create storage directory
+  file:
+    path: /var/lib/registry
+    state: directory
+    mode: '0755'
+
+- name: Install apache2-utils for htpasswd
+  apt:
+    name: apache2-utils
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install httpd-tools for htpasswd (RHEL/CentOS)
+  yum:
+    name: httpd-tools
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Create htpasswd file with registry user
+  shell: |
+    htpasswd -Bbc /etc/docker/registry/htpasswd "{{ registry_username }}" "{{ registry_password }}"
+  args:
+    creates: /etc/docker/registry/htpasswd
+
 - name: Copy registry config
-  copy:
+  template:
     src: config.yaml
     dest: /etc/docker/registry/config.yaml
     owner: root
